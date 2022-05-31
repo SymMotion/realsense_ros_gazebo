@@ -5,7 +5,7 @@
 
   <!-- INTEL REALSENSE D435 -->
 
-  <xacro:macro name="realsense_d435" params="sensor_name parent_link *origin rate">
+  <xacro:macro name="realsense_d435" params="sensor_name parent_link *origin rate use_point_cloud">
 
     <xacro:property name="d435_cam_depth_to_left_ir_offset" value="0.0"/>
     <xacro:property name="d435_cam_depth_to_right_ir_offset" value="-0.050"/>
@@ -236,7 +236,7 @@
         <infrared2OpticalframeName>${sensor_name}_infrared2_optical_frame</infrared2OpticalframeName>
         <rangeMinDepth>0.2</rangeMinDepth>
         <rangeMaxDepth>10.0</rangeMaxDepth>
-        <pointCloud>false</pointCloud>
+        <pointCloud>${use_point_cloud}</pointCloud>
         <pointCloudTopicName>depth/color/points</pointCloudTopicName>
         <pointCloudCutoff>0.25</pointCloudCutoff>
         <pointCloudCutoffMax>9.0</pointCloudCutoffMax>
