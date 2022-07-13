@@ -129,7 +129,7 @@
 
       <sensor name="${sensor_name}_color" type="camera">
         <camera name="${sensor_name}">
-          <horizontal_fov>${69.4*deg_to_rad}</horizontal_fov>
+          <horizontal_fov>${85.2*deg_to_rad}</horizontal_fov>
           <image>
             <width>1280</width>
             <height>720</height>
