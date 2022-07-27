@@ -1,4 +1,5 @@
 #include "realsense_gazebo_plugin/gazebo_ros_realsense.h"
+#include <chrono>
 #include <sensor_msgs/fill_image.h>
 #include <sensor_msgs/point_cloud2_iterator.h>
 
@@ -58,7 +59,6 @@ void GazeboRosRealsense::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf) {
 void GazeboRosRealsense::OnNewFrame(const rendering::CameraPtr cam,
                                     const transport::PublisherPtr pub) {
   //common::Time current_time = this->world->SimTime();
-  common::Time current_time = this->world->RealTime();
 
   // identify camera
   std::string camera_id = extractCameraName(cam->Name());
@@ -73,8 +73,12 @@ void GazeboRosRealsense::OnNewFrame(const rendering::CameraPtr cam,
   // copy data into image
   this->image_msg_.header.frame_id =
       this->cameraParamsMap_[camera_id].optical_frame;
-  this->image_msg_.header.stamp.sec = current_time.sec;
-  this->image_msg_.header.stamp.nsec = current_time.nsec;
+  // this->image_msg_.header.stamp.sec = current_time.sec;
+  // this->image_msg_.header.stamp.nsec = current_time.nsec;
+  auto t_now{std::chrono::system_clock::now().time_since_epoch()};
+  this->image_msg_.header.stamp.sec = std::chrono::duration_cast<std::chrono::seconds>(t_now).count();
+  this->image_msg_.header.stamp.nsec = std::chrono::duration_cast<std::chrono::nanoseconds>(t_now).count();
+
 
   // set image encoding
   const std::map<std::string, std::string> supported_image_encodings = {
