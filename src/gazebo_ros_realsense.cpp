@@ -207,8 +207,11 @@ void GazeboRosRealsense::OnNewDepthFrame() {
   this->depth_msg_.header.frame_id =
       this->cameraParamsMap_[DEPTH_CAMERA_NAME].optical_frame;
   ;
-  this->depth_msg_.header.stamp.sec = current_time.sec;
-  this->depth_msg_.header.stamp.nsec = current_time.nsec;
+  // this->depth_msg_.header.stamp.sec = current_time.sec;
+  // this->depth_msg_.header.stamp.nsec = current_time.nsec;
+  auto t_now{std::chrono::system_clock::now().time_since_epoch()};
+  this->depth_msg_.header.stamp.sec = std::chrono::duration_cast<std::chrono::seconds>(t_now).count();
+  this->depth_msg_.header.stamp.nsec = std::chrono::duration_cast<std::chrono::nanoseconds>(t_now).count();
 
   // set image encoding
   std::string pixel_format = sensor_msgs::image_encodings::TYPE_16UC1;
