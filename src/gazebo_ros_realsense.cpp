@@ -73,11 +73,11 @@ void GazeboRosRealsense::OnNewFrame(const rendering::CameraPtr cam,
   // copy data into image
   this->image_msg_.header.frame_id =
       this->cameraParamsMap_[camera_id].optical_frame;
-  // this->image_msg_.header.stamp.sec = current_time.sec;
-  // this->image_msg_.header.stamp.nsec = current_time.nsec;
-  auto t_now{std::chrono::system_clock::now().time_since_epoch()};
-  this->image_msg_.header.stamp.sec = std::chrono::duration_cast<std::chrono::seconds>(t_now).count();
-  this->image_msg_.header.stamp.nsec = std::chrono::duration_cast<std::chrono::nanoseconds>(t_now).count();
+  auto t_now = std::chrono::system_clock::now().time_since_epoch();
+  auto t_sec = std::chrono::duration_cast<std::chrono::seconds>(t_now);
+  auto t_nsec = std::chrono::duration_cast<std::chrono::nanoseconds>(t_now);
+  this->image_msg_.header.stamp.sec = t_sec.count();
+  this->image_msg_.header.stamp.nsec = t_nsec.count() - (t_sec.count() * 1e9);
 
 
   // set image encoding
@@ -207,11 +207,11 @@ void GazeboRosRealsense::OnNewDepthFrame() {
   this->depth_msg_.header.frame_id =
       this->cameraParamsMap_[DEPTH_CAMERA_NAME].optical_frame;
   ;
-  // this->depth_msg_.header.stamp.sec = current_time.sec;
-  // this->depth_msg_.header.stamp.nsec = current_time.nsec;
-  auto t_now{std::chrono::system_clock::now().time_since_epoch()};
-  this->depth_msg_.header.stamp.sec = std::chrono::duration_cast<std::chrono::seconds>(t_now).count();
-  this->depth_msg_.header.stamp.nsec = std::chrono::duration_cast<std::chrono::nanoseconds>(t_now).count();
+  auto t_now = std::chrono::system_clock::now().time_since_epoch();
+  auto t_sec = std::chrono::duration_cast<std::chrono::seconds>(t_now);
+  auto t_nsec = std::chrono::duration_cast<std::chrono::nanoseconds>(t_now);
+  this->depth_msg_.header.stamp.sec = t_sec.count();
+  this->depth_msg_.header.stamp.nsec = t_nsec.count() - (t_sec.count() * 1e9);
 
   // set image encoding
   std::string pixel_format = sensor_msgs::image_encodings::TYPE_16UC1;
