@@ -235,7 +235,7 @@
         <infrared1OpticalframeName>${sensor_name}_infrared1_optical_frame</infrared1OpticalframeName>
         <infrared2OpticalframeName>${sensor_name}_infrared2_optical_frame</infrared2OpticalframeName>
         <rangeMinDepth>0.2</rangeMinDepth>
-        <rangeMaxDepth>10.0</rangeMaxDepth>
+        <rangeMaxDepth>20.0</rangeMaxDepth>
         <pointCloud>${use_point_cloud}</pointCloud>
         <pointCloudTopicName>depth/color/points</pointCloudTopicName>
         <pointCloudCutoff>0.25</pointCloudCutoff>
@@ -680,7 +680,7 @@
           <infrared1OpticalframeName>${sensor_name}_infrared1_optical_frame</infrared1OpticalframeName>
           <infrared2OpticalframeName>${sensor_name}_infrared2_optical_frame</infrared2OpticalframeName>
           <rangeMinDepth>0.2</rangeMinDepth>
-          <rangeMaxDepth>10.0</rangeMaxDepth>
+          <rangeMaxDepth>20.0</rangeMaxDepth>
           <pointCloud>false</pointCloud>
           <pointCloudTopicName>depth/color/points</pointCloudTopicName>
           <pointCloudCutoff>0.25</pointCloudCutoff>
